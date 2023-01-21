@@ -22,15 +22,18 @@ export default makeStyles(() => ({
     display: 'flex',
     justifyContent: 'flex-end',
     width: '400px',
+    marginRight: '-30px'
   },
   profile: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     width: '400px',
+    gap: '1rem'
   },
   userName: {
     display: 'flex',
     alignItems: 'center',
+    textTransform: 'capitalize'
   },
   brandContainer: {
     display: 'flex',

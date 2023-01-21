@@ -8,4 +8,8 @@ body {
     display: flex;
     flex-direction: row;
 }
+.makeStyles-profile-33 {
+    justify-content: center !important;
+    gap: 1rem;
+}
 

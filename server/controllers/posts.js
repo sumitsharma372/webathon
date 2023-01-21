@@ -12,8 +12,6 @@ export const getPosts = async (req, res) => {
 
 export const getPostsBySearch = async (req, res) => {
     const { searchQuery } = req.query;
-
-    
     try {
         const title = new RegExp(searchQuery, "i");
         const posts = await PostMessage.find({title});
@@ -60,6 +58,9 @@ export const deletePost = async(req, res) => {
 
 export const likePost = async(req, res) => {
     const { id } = req.params;
+    const { name } = req.query;
+
+    // console.log(name)
 
     if(!req.userId) return res.json({ message: 'Unauthorized'});
 
@@ -69,14 +70,14 @@ export const likePost = async(req, res) => {
 
     const post = await PostMessage.findById(id);
 
-    const index = post.likes.findIndex(id => id === String(req.userId)); 
+    const index = post.likes.findIndex(id => id === `${req.userId} ${name}`); 
 
     if(index === -1) {
         // like the post
-        post.likes.push(req.userId)
+        post.likes.push(`${req.userId} ${name}`)
     }else {
         // dislike a post
-        post.likes = post.likes.filter((id) => id !== String(req.userId))
+        post.likes = post.likes.filter((id) => id !== `${req.userId} ${name}`)
     }
 
     const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {new: true})
