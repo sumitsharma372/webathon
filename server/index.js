@@ -10,7 +10,20 @@ import postRoutes from './routes/posts.js'
 import userRoutes from './routes/users.js'
 
 const app = express();
+import { createServer } from 'http';
+import { Server } from 'socket.io';
 
+const httpServer = createServer();
+const socketIO = new Server(httpServer, {
+    cors: { origin : 'http://localhost:3000' }
+})
+
+socketIO.on('connection', (socket) => {
+    console.log(`⚡: ${socket.id} user just connected!`);
+    socket.on('disconnect', () => {
+      console.log('🔥: A user disconnected');
+    });
+});
 
 app.use(bodyParser.json({ limit: "30mb", extended: true}));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true}));

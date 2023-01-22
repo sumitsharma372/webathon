@@ -60,3 +60,13 @@ export const likePost = (id, name) => async(dispatch) => {
         console.log(error.message)
     }
 }
+
+export const deleteVote = (id, vote) => async(dispatch) => {
+    try {
+        const { data } = await api.deleteVote(id, vote)
+        
+        dispatch({type: 'DELETE_VOTE', payload: data})
+    } catch (error) {
+        console.log(error.message)
+    }
+}

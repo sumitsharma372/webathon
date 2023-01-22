@@ -22,7 +22,6 @@ export default makeStyles(() => ({
     display: 'flex',
     justifyContent: 'flex-end',
     width: '400px',
-    marginRight: '-30px'
   },
   profile: {
     display: 'flex',

@@ -84,3 +84,27 @@ export const likePost = async(req, res) => {
 
     res.json(updatedPost)
 }
+
+
+export const deleteVote = async (req, res) => {
+    const { id } = req.params;
+    const { vote } = req.query;
+    console.log(vote)
+
+    if(!req.userId) return res.json({ message: 'Unauthorized'});
+
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).send('No post with that id')
+    }
+
+    const post = await PostMessage.findById(id);
+
+    post.likes = post.likes.filter((id) => id !== String(vote))
+
+    console.log(post.likes)
+
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {new: true})
+
+    console.log(updatedPost)
+    res.json(updatedPost)
+}
